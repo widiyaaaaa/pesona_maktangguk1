@@ -1,0 +1,600 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "DM Sans", sans-serif;
+    background: #f7f5ed;
+    color: #26352b;
+    line-height: 1.7;
+}
+
+/* NAVBAR */
+
+header {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 25px 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: 700;
+    color: white;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+}
+
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    color: #d8e8c5;
+}
+
+.menu-btn {
+    display: none;
+    color: white;
+    font-size: 27px;
+    cursor: pointer;
+}
+
+/* HERO */
+
+.hero {
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            rgba(20, 43, 29, 0.65),
+            rgba(20, 43, 29, 0.55)
+        ),
+        url("images/desa1.jpeg");
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: center;
+    padding: 0 8%;
+}
+
+.hero-content {
+    max-width: 650px;
+    color: white;
+}
+
+.subtitle {
+    letter-spacing: 4px;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+.hero h1 {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(50px, 7vw, 90px);
+    line-height: 1.05;
+}
+
+.hero h1 span {
+    color: #d8e8c5;
+}
+
+.hero-content > p:not(.subtitle) {
+    margin: 25px 0;
+    max-width: 570px;
+}
+
+/* BUTTON */
+
+.btn {
+    display: inline-block;
+    padding: 13px 25px;
+
+    background: #5c765c;
+    color: white;
+
+    text-decoration: none;
+    border-radius: 30px;
+
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #3f5b43;
+    transform: translateY(-3px);
+}
+
+.btn-outline {
+    display: inline-block;
+    padding: 10px 22px;
+
+    border: 1px solid #5c765c;
+    color: #4c664e;
+
+    text-decoration: none;
+    border-radius: 30px;
+
+    margin-top: 15px;
+}
+
+/* SECTION */
+
+section {
+    padding: 90px 8%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title p,
+.small-title,
+.page-header p {
+    color: #71866b;
+    letter-spacing: 3px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.section-title h2 {
+    font-family: "Playfair Display", serif;
+    font-size: 42px;
+}
+
+/* WELCOME */
+
+.welcome {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.welcome-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.welcome-content img {
+    width: 100%;
+    height: 430px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.welcome-text h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 34px;
+    margin-bottom: 20px;
+}
+
+/* QUOTE */
+
+.quote {
+    background: #344c38;
+    color: white;
+    text-align: center;
+}
+
+.quote div {
+    max-width: 850px;
+    margin: auto;
+}
+
+.quote span {
+    font-family: Georgia;
+    font-size: 70px;
+    opacity: .5;
+}
+
+.quote h2 {
+    font-family: "Playfair Display", serif;
+    font-size: 35px;
+}
+
+/* PAGE HEADER */
+
+.page-header {
+    min-height: 55vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            rgba(31, 58, 39, .75),
+            rgba(31, 58, 39, .75)
+        ),
+        url("images/desa3.jpeg");
+
+    background-size: cover;
+    background-position: center;
+
+    color: white;
+}
+
+.page-header p {
+    color: #d8e8c5;
+}
+
+.page-header h1 {
+    font-family: "Playfair Display", serif;
+    font-size: 60px;
+}
+
+/* CONTENT */
+
+.content-section {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.two-column img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.two-column h2 {
+    font-family: "Playfair Display", serif;
+    font-size: 42px;
+    margin: 10px 0 20px;
+}
+
+/* INFO */
+
+.info {
+    max-width: 1100px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.info-card {
+    background: white;
+    padding: 35px;
+    text-align: center;
+    border-radius: 10px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,.05);
+}
+
+.info-card span {
+    font-size: 35px;
+}
+
+.info-card h3 {
+    margin: 10px 0;
+}
+
+/* BEAUTY */
+
+.beauty-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.beauty-card {
+    background: white;
+    overflow: hidden;
+    border-radius: 10px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,.05);
+
+    transition: .3s;
+}
+
+.beauty-card:hover {
+    transform: translateY(-7px);
+}
+
+.beauty-card img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+}
+
+.beauty-card div {
+    padding: 25px;
+}
+
+.beauty-card h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 25px;
+}
+
+/* POTENTIAL */
+
+.potential-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.potential-card {
+    background: white;
+    padding: 35px 25px;
+    text-align: center;
+
+    border-radius: 10px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,.05);
+}
+
+.potential-card .icon {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.potential-card h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* BANNER */
+
+.banner {
+    background:
+        linear-gradient(
+            rgba(34,61,42,.75),
+            rgba(34,61,42,.75)
+        ),
+        url("images/desa5.jpeg");
+
+    background-size: cover;
+    background-position: center;
+
+    color: white;
+    text-align: center;
+}
+
+.banner h2 {
+    font-family: "Playfair Display", serif;
+    font-size: 45px;
+}
+
+/* GALLERY */
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.gallery-item {
+    height: 280px;
+    overflow: hidden;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    transition: .5s;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.08);
+}
+
+/* LIGHTBOX */
+
+.lightbox {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0,0,0,.9);
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 2000;
+}
+
+.lightbox img {
+    max-width: 85%;
+    max-height: 85%;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+
+    color: white;
+    font-size: 45px;
+    cursor: pointer;
+}
+
+/* LOCATION */
+
+.location-section {
+    max-width: 1200px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 50px;
+
+    align-items: center;
+}
+
+.location-info h2 {
+    font-family: "Playfair Display", serif;
+    font-size: 45px;
+    margin: 10px 0;
+}
+
+.location-detail {
+    display: flex;
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.location-detail div {
+    font-size: 30px;
+}
+
+.map-box {
+    height: 450px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.map-box iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* FOOTER */
+
+footer {
+    background: #26382b;
+    color: white;
+    text-align: center;
+    padding: 30px 10px;
+
+    font-size: 13px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 850px) {
+
+    .nav-menu {
+        position: absolute;
+        top: 75px;
+        right: 5%;
+
+        width: 220px;
+
+        background: #26382b;
+
+        flex-direction: column;
+        gap: 0;
+
+        padding: 10px 0;
+
+        display: none;
+    }
+
+    .nav-menu.show {
+        display: flex;
+    }
+
+    .nav-menu li a {
+        display: block;
+        padding: 12px 20px;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .welcome-content,
+    .two-column,
+    .location-section {
+        grid-template-columns: 1fr;
+    }
+
+    .info {
+        grid-template-columns: 1fr;
+    }
+
+    .beauty-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .potential-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .gallery {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .page-header h1 {
+        font-size: 45px;
+    }
+}
+
+@media (max-width: 550px) {
+
+    section {
+        padding: 70px 5%;
+    }
+
+    .hero {
+        padding: 0 5%;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+    }
+
+    .section-title h2 {
+        font-size: 32px;
+    }
+
+    .potential-grid,
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-item {
+        height: 300px;
+    }
+
+}
