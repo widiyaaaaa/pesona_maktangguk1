@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aduan - Pesona Maktangguk</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .aduan-container {
+            width: 90%;
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        textarea {
+            height: 120px;
+            resize: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 8px;
+            background: #2e7d32;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1b5e20;
+        }
+
+        #pesan {
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="aduan-container">
+
+    <h1>Form Aduan</h1>
+
+    <form id="formAduan">
+
+        <label>Nama</label>
+        <input type="text" id="nama" required>
+
+        <label>Email</label>
+        <input type="email" id="email" required>
+
+        <label>No. WhatsApp</label>
+        <input type="text" id="whatsapp" required>
+
+        <label>Kategori Aduan</label>
+        <select id="kategori" required>
+            <option value="">Pilih Kategori</option>
+            <option>Infrastruktur</option>
+            <option>Lingkungan</option>
+            <option>Fasilitas Umum</option>
+            <option>Pelayanan</option>
+            <option>Lainnya</option>
+        </select>
+
+        <label>Judul Aduan</label>
+        <input type="text" id="judul" required>
+
+        <label>Isi Aduan</label>
+        <textarea id="aduan" required></textarea>
+
+        <button type="submit">Kirim Aduan</button>
+
+        <div id="pesan"></div>
+
+    </form>
+
+</div>
+
+<script>
+
+const scriptURL = "https://script.google.com/macros/s/AKfycbwkN_L8a4pupOPczCy3iC-FQzytRUTwbFVT6-ekkc-RPL9s3us8_0BwtUXzMpN5bkdqZw/exec";
+
+document.getElementById("formAduan").addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+    const data = {
+        nama: document.getElementById("nama").value,
+        email: document.getElementById("email").value,
+        whatsapp: document.getElementById("whatsapp").value,
+        kategori: document.getElementById("kategori").value,
+        judul: document.getElementById("judul").value,
+        aduan: document.getElementById("aduan").value
+    };
+
+    fetch(scriptURL, {
+        method: "POST",
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+
+        if (result.success) {
+            document.getElementById("pesan").innerHTML =
+                "Aduan berhasil dikirim!";
+
+            document.getElementById("formAduan").reset();
+
+        } else {
+            document.getElementById("pesan").innerHTML =
+                "Aduan gagal dikirim!";
+        }
+
+    })
+    .catch(error => {
+        document.getElementById("pesan").innerHTML =
+            "Terjadi kesalahan!";
+        console.error(error);
+    });
+
+});
+
+</script>
+
+</body>
+</html>
