@@ -3,122 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aduan - Pesona Maktangguk</title>
+
+    <title>Aduan - Pesona Desa Maktangguk</title>
+
+    <link rel="stylesheet" href="style.css">
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f7f5;
-            margin: 0;
-            padding: 0;
+        /* FORM ADUAN */
+        .aduan-section {
+            padding: 80px 5%;
+            background: #f3f8f3;
+            min-height: 80vh;
         }
 
         .aduan-container {
-            width: 90%;
-            max-width: 600px;
-            margin: 50px auto;
+            max-width: 700px;
+            margin: 30px auto;
             background: white;
-            padding: 30px;
+            padding: 35px;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.10);
         }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        label {
+        .aduan-container label {
             display: block;
             margin-top: 15px;
-            margin-bottom: 5px;
+            margin-bottom: 7px;
+            font-weight: bold;
+            color: #315c3b;
+        }
+
+        .aduan-container input,
+        .aduan-container select,
+        .aduan-container textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd8ce;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        .aduan-container input:focus,
+        .aduan-container select:focus,
+        .aduan-container textarea:focus {
+            border-color: #3d7a4d;
+            box-shadow: 0 0 5px rgba(61,122,77,0.25);
+        }
+
+        .btn-aduan {
+            width: 100%;
+            margin-top: 25px;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #39734a;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-aduan:hover {
+            background: #285c38;
+            transform: translateY(-2px);
+        }
+
+        /* PESAN BERHASIL */
+        .pesan-berhasil {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background: #d9f5df;
+            color: #176b2d;
+            border: 1px solid #8ed39c;
+            text-align: center;
             font-weight: bold;
         }
 
-        input, textarea, select {
-            width: 100%;
-            padding: 12px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-        }
-
-        textarea {
-            height: 120px;
-            resize: none;
-        }
-
-        button {
-            width: 100%;
-            padding: 13px;
+        /* PESAN GAGAL */
+        .pesan-gagal {
             margin-top: 20px;
-            border: none;
+            padding: 15px;
             border-radius: 8px;
-            background: #2e7d32;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #1b5e20;
-        }
-
-        #pesan {
+            background: #ffe0e0;
+            color: #a51d1d;
+            border: 1px solid #ef9a9a;
             text-align: center;
-            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .judul-aduan {
+            text-align: center;
+            color: #315c3b;
+        }
+
+        .deskripsi-aduan {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
         }
     </style>
 </head>
 
 <body>
 
-<div class="aduan-container">
+<header>
+    <nav class="navbar">
 
-    <h1>Form Aduan</h1>
+        <div class="logo">🌿 Maktangguk</div>
 
-    <form id="formAduan">
+        <ul class="nav-menu">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="profil.html">Profil</a></li>
+            <li><a href="keindahan.html">Keindahan</a></li>
+            <li><a href="potensi.html">Potensi</a></li>
+            <li><a href="galeri.html">Galeri</a></li>
+            <li><a href="lokasi.html">Lokasi</a></li>
+            <li><a href="aduan.html" class="active">Aduan</a></li>
+        </ul>
 
-        <label>Nama</label>
-        <input type="text" id="nama" required>
+        <div class="menu-btn">☰</div>
 
-        <label>Email</label>
-        <input type="email" id="email" required>
+    </nav>
+</header>
 
-        <label>No. WhatsApp</label>
-        <input type="text" id="whatsapp" required>
 
-        <label>Kategori Aduan</label>
-        <select id="kategori" required>
-            <option value="">Pilih Kategori</option>
-            <option>Infrastruktur</option>
-            <option>Lingkungan</option>
-            <option>Fasilitas Umum</option>
-            <option>Pelayanan</option>
-            <option>Lainnya</option>
-        </select>
+<section class="aduan-section">
 
-        <label>Judul Aduan</label>
-        <input type="text" id="judul" required>
+    <div class="section-title">
+        <p>SAMPAIKAN ASPIRASI</p>
+        <h2>Form Aduan</h2>
+    </div>
 
-        <label>Isi Aduan</label>
-        <textarea id="aduan" required></textarea>
+    <div class="aduan-container">
 
-        <button type="submit">Kirim Aduan</button>
+        <h2 class="judul-aduan">📢 Sampaikan Aduan</h2>
 
-        <div id="pesan"></div>
+        <p class="deskripsi-aduan">
+            Silakan isi formulir berikut untuk menyampaikan aduan,
+            kritik, atau saran mengenai Desa Maktangguk.
+        </p>
 
-    </form>
+        <form id="formAduan">
 
-</div>
+            <label for="nama">Nama</label>
+            <input type="text" id="nama" placeholder="Masukkan nama" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Masukkan email" required>
+
+            <label for="whatsapp">No. WhatsApp</label>
+            <input type="text" id="whatsapp" placeholder="Masukkan nomor WhatsApp" required>
+
+            <label for="kategori">Kategori Aduan</label>
+
+            <select id="kategori" required>
+                <option value="">-- Pilih Kategori --</option>
+                <option value="Infrastruktur">Infrastruktur</option>
+                <option value="Lingkungan">Lingkungan</option>
+                <option value="Fasilitas Umum">Fasilitas Umum</option>
+                <option value="Pelayanan">Pelayanan</option>
+                <option value="Lainnya">Lainnya</option>
+            </select>
+
+            <label for="judul">Judul Aduan</label>
+            <input type="text" id="judul" placeholder="Contoh: Jalan rusak" required>
+
+            <label for="aduan">Isi Aduan</label>
+            <textarea id="aduan" rows="6"
+                placeholder="Tuliskan aduan, kritik, atau saran Anda..."
+                required></textarea>
+
+            <button type="submit" class="btn-aduan" id="tombolKirim">
+                📤 Kirim Aduan
+            </button>
+
+            <div id="pesan"></div>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<footer>
+    <p>© 2026 Pesona Desa Maktangguk</p>
+    <p>Dusun Karya Bhakti, Sambas, Kalimantan Barat</p>
+</footer>
+
 
 <script>
 
-const scriptURL = "https://script.google.com/macros/s/AKfycbwkN_L8a4pupOPczCy3iC-FQzytRUTwbFVT6-ekkc-RPL9s3us8_0BwtUXzMpN5bkdqZw/exec";
+const scriptURL =
+"https://script.google.com/macros/s/AKfycbwkN_L8a4pupOPczCy3iC-FQzytRUTwbFVT6-ekkc-RPL9s3us8_0BwtUXzMpN5bkdqZw/exec";
+
 
 document.getElementById("formAduan").addEventListener("submit", function(e) {
 
     e.preventDefault();
+
+    const tombol = document.getElementById("tombolKirim");
+    const pesan = document.getElementById("pesan");
+
+    tombol.disabled = true;
+    tombol.innerHTML = "⏳ Mengirim...";
+
+    pesan.innerHTML = "";
 
     const data = {
         nama: document.getElementById("nama").value,
@@ -133,25 +227,47 @@ document.getElementById("formAduan").addEventListener("submit", function(e) {
         method: "POST",
         body: JSON.stringify(data)
     })
+
     .then(response => response.json())
+
     .then(result => {
 
         if (result.success) {
-            document.getElementById("pesan").innerHTML =
-                "Aduan berhasil dikirim!";
+
+            pesan.className = "pesan-berhasil";
+
+            pesan.innerHTML =
+                "✅ Aduan berhasil terkirim! Terima kasih telah menyampaikan aspirasi.";
 
             document.getElementById("formAduan").reset();
 
         } else {
-            document.getElementById("pesan").innerHTML =
-                "Aduan gagal dikirim!";
+
+            pesan.className = "pesan-gagal";
+
+            pesan.innerHTML =
+                "❌ Aduan gagal terkirim. Silakan coba lagi.";
+
         }
 
     })
+
     .catch(error => {
-        document.getElementById("pesan").innerHTML =
-            "Terjadi kesalahan!";
+
+        pesan.className = "pesan-gagal";
+
+        pesan.innerHTML =
+            "❌ Aduan tidak dapat terkirim. Periksa koneksi atau coba lagi.";
+
         console.error(error);
+
+    })
+
+    .finally(() => {
+
+        tombol.disabled = false;
+        tombol.innerHTML = "📤 Kirim Aduan";
+
     });
 
 });
