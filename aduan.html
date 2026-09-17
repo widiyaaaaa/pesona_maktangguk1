@@ -1,74 +1,151 @@
-.then(result => {
+<script>
 
-    if (result.status === "success") {
+const API_URL =
+"https://script.google.com/macros/s/AKfycbwkN_L8a4pupOPczCy3iC-FQzytRUTwbFVT6-ekkc-RPL9s3us8_0BwtUXzMpN5bkdqZw/exec";
 
-        pesan.className = "pesan-berhasil";
 
-        pesan.innerHTML = `
-            <div style="
-                background:#d9f5df;
-                color:#176b2d;
-                padding:20px;
-                border-radius:12px;
-                text-align:center;
-                margin-top:20px;
-            ">
+document
+.getElementById("formAduan")
+.addEventListener("submit", function(event) {
 
-                <h3>✅ Aduan Berhasil Dikirim!</h3>
+    event.preventDefault();
 
-                <p>
-                    Terima kasih telah menyampaikan aduan.
-                </p>
+    const pesan =
+        document.getElementById("pesan");
 
-                <p>
-                    <strong>Token Aduan Anda:</strong>
-                </p>
+    const data = {
+
+        nama:
+            document.getElementById("nama").value.trim(),
+
+        email:
+            document.getElementById("email").value.trim(),
+
+        kategori:
+            document.getElementById("kategori").value,
+
+        judul:
+            document.getElementById("judul").value.trim(),
+
+        aduan:
+            document.getElementById("aduan").value.trim()
+
+    };
+
+
+    pesan.className = "";
+
+    pesan.innerHTML =
+        "<p style='text-align:center;'>⏳ Mengirim aduan...</p>";
+
+
+    fetch(API_URL, {
+
+        method: "POST",
+
+        body: JSON.stringify(data)
+
+    })
+
+    .then(response => response.json())
+
+    .then(result => {
+
+        if (result.status === "success") {
+
+            pesan.className = "pesan-berhasil";
+
+            pesan.innerHTML = `
 
                 <div style="
-                    background:white;
-                    padding:15px;
-                    border-radius:8px;
-                    font-size:20px;
-                    font-weight:bold;
-                    color:#315c3b;
-                    margin:10px 0;
-                    letter-spacing:1px;
+                    background:#d9f5df;
+                    color:#176b2d;
+                    padding:20px;
+                    border-radius:12px;
+                    text-align:center;
+                    margin-top:20px;
                 ">
-                    ${result.token}
+
+                    <h3>
+                        ✅ Aduan Berhasil Dikirim!
+                    </h3>
+
+                    <p>
+                        Terima kasih telah menyampaikan aduan.
+                    </p>
+
+                    <p>
+                        <strong>
+                            Token Aduan Anda:
+                        </strong>
+                    </p>
+
+                    <div style="
+                        background:white;
+                        padding:15px;
+                        border-radius:8px;
+                        font-size:20px;
+                        font-weight:bold;
+                        color:#315c3b;
+                        margin:10px 0;
+                        letter-spacing:1px;
+                    ">
+                        ${result.token}
+                    </div>
+
+                    <p>
+                        ⚠️ Simpan token ini untuk melihat
+                        tanggapan dari admin.
+                    </p>
+
+                    <button
+                        type="button"
+                        onclick="window.location.href='cek-aduan.html'"
+                        style="
+                            background:#39734a;
+                            color:white;
+                            border:none;
+                            padding:12px 20px;
+                            border-radius:8px;
+                            cursor:pointer;
+                            font-weight:bold;
+                        "
+                    >
+                        🔎 Cek Tanggapan
+                    </button>
+
                 </div>
 
-                <p>
-                    ⚠️ Simpan token ini untuk melihat
-                    tanggapan dari admin.
-                </p>
+            `;
 
-                <button
-                    type="button"
-                    onclick="window.location.href='cek-aduan.html'"
-                    style="
-                        background:#39734a;
-                        color:white;
-                        border:none;
-                        padding:12px 20px;
-                        border-radius:8px;
-                        cursor:pointer;
-                        font-weight:bold;
-                    "
-                >
-                    🔎 Cek Tanggapan
-                </button>
+            document
+                .getElementById("formAduan")
+                .reset();
 
-            </div>
-        `;
+        } else {
 
-        document.getElementById("formAduan").reset();
+            pesan.className = "pesan-gagal";
 
-    } else {
+            pesan.innerHTML =
+                "❌ " +
+                (result.message ||
+                "Aduan gagal dikirim.");
+
+        }
+
+    })
+
+    .catch(error => {
 
         pesan.className = "pesan-gagal";
 
         pesan.innerHTML =
-            "❌ " + result.message;
-    }
+            "❌ Gagal mengirim aduan.";
 
-})
+        console.error(error);
+
+    });
+
+});
+
+</script>
