@@ -1,151 +1,422 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aduan - Pesona Desa Maktangguk</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f8f4;
+            color: #333;
+        }
+
+        header {
+            background: #176b3a;
+            color: white;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h2 {
+            font-size: 22px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 18px;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 45px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            color: #176b3a;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .deskripsi {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 16px;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #176b3a;
+        }
+
+        textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            border: none;
+            padding: 13px;
+            margin-top: 22px;
+            border-radius: 8px;
+            background: #176b3a;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #10552d;
+        }
+
+        button:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+        .pesan {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            line-height: 1.6;
+        }
+
+        .pesan-berhasil {
+            display: block;
+            background: #e7f7ec;
+            border: 1px solid #4caf50;
+            color: #176b3a;
+        }
+
+        .pesan-gagal {
+            display: block;
+            background: #fdeaea;
+            border: 1px solid #e53935;
+            color: #b71c1c;
+        }
+
+        .token-box {
+            margin-top: 12px;
+            padding: 12px;
+            background: white;
+            border: 2px dashed #176b3a;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+
+        .btn-copy {
+            background: #e0a800;
+            margin-top: 10px;
+        }
+
+        .btn-copy:hover {
+            background: #c69500;
+        }
+
+        .btn-cek {
+            background: #2471a3;
+            margin-top: 10px;
+        }
+
+        .btn-cek:hover {
+            background: #1b5a82;
+        }
+
+        @media (max-width: 700px) {
+            header {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            nav {
+                text-align: center;
+            }
+
+            nav a {
+                margin: 5px;
+                display: inline-block;
+            }
+
+            .container {
+                margin: 25px auto;
+            }
+
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>Pesona Desa Maktangguk</h2>
+
+    <nav>
+        <a href="index.html">Beranda</a>
+        <a href="profil.html">Profil</a>
+        <a href="keindahan.html">Keindahan</a>
+        <a href="potensi.html">Potensi</a>
+        <a href="galeri.html">Galeri</a>
+        <a href="lokasi.html">Lokasi</a>
+        <a href="aduan.html">Aduan</a>
+    </nav>
+</header>
+
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>Form Aduan</h1>
+
+        <p class="deskripsi">
+            Sampaikan aduan, kritik, atau saran Anda mengenai Desa Maktangguk.
+        </p>
+
+        <form id="formAduan">
+
+            <label for="nama">Nama</label>
+            <input
+                type="text"
+                id="nama"
+                name="nama"
+                placeholder="Masukkan nama"
+                required
+            >
+
+            <label for="email">Email</label>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Masukkan email"
+                required
+            >
+
+            <label for="kategori">Kategori</label>
+            <select id="kategori" name="kategori" required>
+                <option value="">-- Pilih Kategori --</option>
+                <option value="Aduan">Aduan</option>
+                <option value="Kritik">Kritik</option>
+                <option value="Saran">Saran</option>
+            </select>
+
+            <label for="judul">Judul</label>
+            <input
+                type="text"
+                id="judul"
+                name="judul"
+                placeholder="Masukkan judul aduan"
+                required
+            >
+
+            <label for="aduan">Isi Aduan</label>
+            <textarea
+                id="aduan"
+                name="aduan"
+                placeholder="Tuliskan aduan, kritik, atau saran Anda..."
+                required
+            ></textarea>
+
+            <button type="submit" id="btnKirim">
+                Kirim Aduan
+            </button>
+
+        </form>
+
+        <div id="pesan" class="pesan"></div>
+
+    </div>
+
+</div>
+
+
 <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbwkN_L8a4pupOPczCy3iC-FQzytRUTwbFVT6-ekkc-RPL9s3us8_0BwtUXzMpN5bkdqZw/exec";
 
-const API_URL =
-"https://script.google.com/macros/s/AKfycbwkN_L8a4pupOPczCy3iC-FQzytRUTwbFVT6-ekkc-RPL9s3us8_0BwtUXzMpN5bkdqZw/exec";
-
-
-document
-.getElementById("formAduan")
-.addEventListener("submit", function(event) {
-
-    event.preventDefault();
-
-    const pesan =
-        document.getElementById("pesan");
-
-    const data = {
-
-        nama:
-            document.getElementById("nama").value.trim(),
-
-        email:
-            document.getElementById("email").value.trim(),
-
-        kategori:
-            document.getElementById("kategori").value,
-
-        judul:
-            document.getElementById("judul").value.trim(),
-
-        aduan:
-            document.getElementById("aduan").value.trim()
-
-    };
+    const form = document.getElementById("formAduan");
+    const pesan = document.getElementById("pesan");
+    const btnKirim = document.getElementById("btnKirim");
 
 
-    pesan.className = "";
+    form.addEventListener("submit", async function(event) {
 
-    pesan.innerHTML =
-        "<p style='text-align:center;'>⏳ Mengirim aduan...</p>";
+        event.preventDefault();
+
+        btnKirim.disabled = true;
+        btnKirim.textContent = "Mengirim...";
+
+        pesan.className = "pesan";
+        pesan.style.display = "none";
+        pesan.innerHTML = "";
 
 
-    fetch(API_URL, {
+        const data = {
+            nama: document.getElementById("nama").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            kategori: document.getElementById("kategori").value,
+            judul: document.getElementById("judul").value.trim(),
+            aduan: document.getElementById("aduan").value.trim()
+        };
 
-        method: "POST",
 
-        body: JSON.stringify(data)
+        try {
 
-    })
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8"
+                },
+                body: JSON.stringify(data)
+            });
 
-    .then(response => response.json())
 
-    .then(result => {
+            const result = await response.json();
 
-        if (result.status === "success") {
 
-            pesan.className = "pesan-berhasil";
+            if (result.status === "success") {
 
-            pesan.innerHTML = `
+                pesan.className = "pesan pesan-berhasil";
 
-                <div style="
-                    background:#d9f5df;
-                    color:#176b2d;
-                    padding:20px;
-                    border-radius:12px;
-                    text-align:center;
-                    margin-top:20px;
-                ">
+                pesan.innerHTML = `
+                    <strong>✓ Aduan Berhasil Dikirim!</strong>
+                    <br>
+                    Aduan Anda telah berhasil dikirim.
 
-                    <h3>
-                        ✅ Aduan Berhasil Dikirim!
-                    </h3>
+                    <br><br>
 
-                    <p>
-                        Terima kasih telah menyampaikan aduan.
-                    </p>
+                    <strong>Simpan token aduan Anda:</strong>
 
-                    <p>
-                        <strong>
-                            Token Aduan Anda:
-                        </strong>
-                    </p>
-
-                    <div style="
-                        background:white;
-                        padding:15px;
-                        border-radius:8px;
-                        font-size:20px;
-                        font-weight:bold;
-                        color:#315c3b;
-                        margin:10px 0;
-                        letter-spacing:1px;
-                    ">
+                    <div class="token-box">
                         ${result.token}
                     </div>
 
-                    <p>
-                        ⚠️ Simpan token ini untuk melihat
-                        tanggapan dari admin.
+                    <p style="margin-top:10px;">
+                        Token ini digunakan untuk mengecek tanggapan dari admin.
                     </p>
 
                     <button
                         type="button"
-                        onclick="window.location.href='cek-aduan.html'"
-                        style="
-                            background:#39734a;
-                            color:white;
-                            border:none;
-                            padding:12px 20px;
-                            border-radius:8px;
-                            cursor:pointer;
-                            font-weight:bold;
-                        "
-                    >
-                        🔎 Cek Tanggapan
+                        class="btn-copy"
+                        onclick="salinToken('${result.token}')">
+                        Salin Token
                     </button>
 
-                </div>
+                    <button
+                        type="button"
+                        class="btn-cek"
+                        onclick="window.location.href='cek-aduan.html'">
+                        Cek Aduan
+                    </button>
+                `;
 
+                pesan.style.display = "block";
+
+                form.reset();
+
+            } else {
+
+                pesan.className = "pesan pesan-gagal";
+
+                pesan.innerHTML = `
+                    <strong>✕ Aduan Gagal Dikirim</strong>
+                    <br>
+                    ${result.message || "Terjadi kesalahan saat mengirim aduan."}
+                `;
+
+                pesan.style.display = "block";
+            }
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            pesan.className = "pesan pesan-gagal";
+
+            pesan.innerHTML = `
+                <strong>✕ Gagal Terhubung ke Server</strong>
+                <br>
+                Periksa koneksi internet atau konfigurasi Google Apps Script.
             `;
 
-            document
-                .getElementById("formAduan")
-                .reset();
-
-        } else {
-
-            pesan.className = "pesan-gagal";
-
-            pesan.innerHTML =
-                "❌ " +
-                (result.message ||
-                "Aduan gagal dikirim.");
+            pesan.style.display = "block";
 
         }
 
-    })
 
-    .catch(error => {
-
-        pesan.className = "pesan-gagal";
-
-        pesan.innerHTML =
-            "❌ Gagal mengirim aduan.";
-
-        console.error(error);
+        btnKirim.disabled = false;
+        btnKirim.textContent = "Kirim Aduan";
 
     });
 
-});
 
+    function salinToken(token) {
+
+        navigator.clipboard.writeText(token)
+            .then(function() {
+
+                alert("Token berhasil disalin!");
+
+            })
+            .catch(function() {
+
+                alert("Token: " + token);
+
+            });
+
+    }
 </script>
+
+</body>
+</html>
