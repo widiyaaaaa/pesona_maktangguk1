@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Aduan - Maktangguk</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f8f3;
+        }
+
+        .admin-section {
+            min-height: 100vh;
+            padding: 60px 20px;
+        }
+
+        .admin-container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #315c3b;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 7px;
+            font-weight: bold;
+            color: #315c3b;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            box-sizing: border-box;
+            border: 1px solid #cbd8ce;
+            border-radius: 8px;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 8px;
+            background: #39734a;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #285c38;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .box {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f3f8f3;
+            border-radius: 10px;
+        }
+
+        .pesan {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .sukses {
+            background: #d9f5df;
+            color: #176b2d;
+        }
+
+        .gagal {
+            background: #ffe0e0;
+            color: #a51d1d;
+        }
+
+        .logout {
+            background: #a51d1d;
+        }
+    </style>
+</head>
+
+<body>
+
+<section class="admin-section">
+
+    <div class="admin-container" id="loginBox">
+
+        <h2>🔐 Login Admin</h2>
+
+        <label>Username</label>
+        <input type="text" id="username" placeholder="Masukkan username">
+
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Masukkan password">
+
+        <button onclick="login()">
+            🔑 Login
+        </button>
+
+        <div id="loginPesan"></div>
+
+    </div>
+
+
+    <div class="admin-container hidden" id="adminBox">
+
+        <h2>📢 Dashboard Admin</h2>
+
+        <label>Token Aduan</label>
+
+        <input
+            type="text"
+            id="token"
+            placeholder="Contoh: ADUAN-XXXXXXXX">
+
+        <button onclick="cariAduan()">
+            🔎 Cari Aduan
+        </button>
+
+        <div id="hasil"></div>
+
+        <button class="logout" onclick="logout()">
+            🚪 Logout
+        </button>
+
+    </div>
+
+</section>
+
+
+<script>
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycbwkN_L8a4pupOPczCy3iC-FQzytRUTwbFVT6-ekkc-RPL9s3us8_0BwtUXzMpN5bkdqZw/exec";
+
+
+function login() {
+
+    const username =
+        document.getElementById("username").value;
+
+    const password =
+        document.getElementById("password").value;
+
+    const pesan =
+        document.getElementById("loginPesan");
+
+
+    if (username === "admin" && password === "admin123") {
+
+        document
+            .getElementById("loginBox")
+            .classList.add("hidden");
+
+        document
+            .getElementById("adminBox")
+            .classList.remove("hidden");
+
+    } else {
+
+        pesan.className = "pesan gagal";
+
+        pesan.innerHTML =
+            "❌ Username atau password salah.";
+    }
+}
+
+
+function cariAduan() {
+
+    const token =
+        document.getElementById("token").value.trim();
+
+    const hasil =
+        document.getElementById("hasil");
+
+
+    if (!token) {
+
+        hasil.className = "pesan gagal";
+
+        hasil.innerHTML =
+            "❌ Masukkan token terlebih dahulu.";
+
+        return;
+    }
+
+
+    hasil.className = "pesan";
+
+    hasil.innerHTML =
+        "⏳ Mencari aduan...";
+
+
+    fetch(API_URL + "?token=" +
+        encodeURIComponent(token))
+
+    .then(response => response.json())
+
+    .then(result => {
+
+        if (result.status === "success") {
+
+            const data = result.data;
+
+            hasil.className = "box";
+
+            hasil.innerHTML = `
+
+                <p><strong>Token:</strong> ${data.token}</p>
+
+                <p><strong>Nama:</strong> ${data.nama}</p>
+
+                <p><strong>Email:</strong> ${data.email}</p>
+
+                <p><strong>Kategori:</strong> ${data.kategori}</p>
+
+                <p><strong>Judul:</strong> ${data.judul}</p>
+
+                <p>
+                    <strong>Isi Aduan:</strong><br>
+                    ${data.aduan}
+                </p>
+
+                <p>
+                    <strong>Tanggapan:</strong><br>
+                    ${data.tanggapan}
+                </p>
+
+                <label>Tanggapan Admin</label>
+
+                <textarea
+                    id="tanggapan"
+                    rows="5"
+                    placeholder="Tuliskan tanggapan..."></textarea>
+
+                <button onclick="simpanTanggapan()">
+                    💾 Simpan Tanggapan
+                </button>
+
+                <div id="pesanTanggapan"></div>
+            `;
+
+        } else {
+
+            hasil.className = "pesan gagal";
+
+            hasil.innerHTML =
+                "❌ " + result.message;
+        }
+
+    })
+
+    .catch(error => {
+
+        hasil.className = "pesan gagal";
+
+        hasil.innerHTML =
+            "❌ Gagal mengambil data aduan.";
+
+        console.error(error);
+    });
+}
+
+
+function simpanTanggapan() {
+
+    const token =
+        document.getElementById("token").value.trim();
+
+    const tanggapan =
+        document.getElementById("tanggapan").value.trim();
+
+    const pesan =
+        document.getElementById("pesanTanggapan");
+
+
+    if (!tanggapan) {
+
+        pesan.className = "pesan gagal";
+
+        pesan.innerHTML =
+            "❌ Tanggapan belum diisi.";
+
+        return;
+    }
+
+
+    pesan.className = "pesan";
+
+    pesan.innerHTML =
+        "⏳ Menyimpan...";
+
+
+    fetch(API_URL, {
+
+        method: "POST",
+
+        body: JSON.stringify({
+
+            action: "tanggapan",
+
+            token: token,
+
+            tanggapan: tanggapan
+
+        })
+
+    })
+
+    .then(response => response.json())
+
+    .then(result => {
+
+        if (result.status === "success") {
+
+            pesan.className =
+                "pesan sukses";
+
+            pesan.innerHTML =
+                "✅ Tanggapan berhasil disimpan.";
+
+        } else {
+
+            pesan.className =
+                "pesan gagal";
+
+            pesan.innerHTML =
+                "❌ " + result.message;
+        }
+
+    })
+
+    .catch(error => {
+
+        pesan.className =
+            "pesan gagal";
+
+        pesan.innerHTML =
+            "❌ Gagal menyimpan tanggapan.";
+
+        console.error(error);
+    });
+}
+
+
+function logout() {
+
+    document
+        .getElementById("adminBox")
+        .classList.add("hidden");
+
+    document
+        .getElementById("loginBox")
+        .classList.remove("hidden");
+
+    document.getElementById("username").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("token").value = "";
+    document.getElementById("hasil").innerHTML = "";
+}
+
+</script>
+
+</body>
+</html>
