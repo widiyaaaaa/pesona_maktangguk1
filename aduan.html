@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -9,7 +10,6 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* FORM ADUAN */
         .aduan-section {
             padding: 80px 5%;
             background: #f3f8f3;
@@ -71,7 +71,12 @@
             transform: translateY(-2px);
         }
 
-        /* PESAN BERHASIL */
+        .btn-aduan:disabled {
+            background: #999;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .pesan-berhasil {
             margin-top: 20px;
             padding: 15px;
@@ -83,7 +88,6 @@
             font-weight: bold;
         }
 
-        /* PESAN GAGAL */
         .pesan-gagal {
             margin-top: 20px;
             padding: 15px;
@@ -130,7 +134,6 @@
     </nav>
 </header>
 
-
 <section class="aduan-section">
 
     <div class="section-title">
@@ -150,13 +153,12 @@
         <form id="formAduan">
 
             <label for="nama">Nama</label>
-            <input type="text" id="nama" placeholder="Masukkan nama" required>
+            <input type="text" id="nama"
+                placeholder="Masukkan nama" required>
 
             <label for="email">Email</label>
-            <input type="email" id="email" placeholder="Masukkan email" required>
-
-            <label for="whatsapp">No. WhatsApp</label>
-            <input type="text" id="whatsapp" placeholder="Masukkan nomor WhatsApp" required>
+            <input type="email" id="email"
+                placeholder="Masukkan email" required>
 
             <label for="kategori">Kategori Aduan</label>
 
@@ -170,7 +172,8 @@
             </select>
 
             <label for="judul">Judul Aduan</label>
-            <input type="text" id="judul" placeholder="Contoh: Jalan rusak" required>
+            <input type="text" id="judul"
+                placeholder="Contoh: Jalan rusak" required>
 
             <label for="aduan">Isi Aduan</label>
             <textarea id="aduan" rows="6"
@@ -189,18 +192,15 @@
 
 </section>
 
-
 <footer>
     <p>© 2026 Pesona Desa Maktangguk</p>
     <p>Dusun Karya Bhakti, Sambas, Kalimantan Barat</p>
 </footer>
 
-
 <script>
 
 const scriptURL =
 "https://script.google.com/macros/s/AKfycbwkN_L8a4pupOPczCy3iC-FQzytRUTwbFVT6-ekkc-RPL9s3us8_0BwtUXzMpN5bkdqZw/exec";
-
 
 document.getElementById("formAduan").addEventListener("submit", function(e) {
 
@@ -211,13 +211,12 @@ document.getElementById("formAduan").addEventListener("submit", function(e) {
 
     tombol.disabled = true;
     tombol.innerHTML = "⏳ Mengirim...";
-
     pesan.innerHTML = "";
+    pesan.className = "";
 
     const data = {
         nama: document.getElementById("nama").value,
         email: document.getElementById("email").value,
-        whatsapp: document.getElementById("whatsapp").value,
         kategori: document.getElementById("kategori").value,
         judul: document.getElementById("judul").value,
         aduan: document.getElementById("aduan").value
@@ -232,12 +231,14 @@ document.getElementById("formAduan").addEventListener("submit", function(e) {
 
     .then(result => {
 
-        if (result.success) {
+        if (result.status === "success") {
 
             pesan.className = "pesan-berhasil";
 
             pesan.innerHTML =
-                "✅ Aduan berhasil terkirim! Terima kasih telah menyampaikan aspirasi.";
+                "✅ Aduan berhasil terkirim!<br><br>" +
+                "Token Aduan: <strong>" + result.token + "</strong><br>" +
+                "Simpan token ini untuk mengecek tanggapan.";
 
             document.getElementById("formAduan").reset();
 
@@ -276,3 +277,4 @@ document.getElementById("formAduan").addEventListener("submit", function(e) {
 
 </body>
 </html>
+```
