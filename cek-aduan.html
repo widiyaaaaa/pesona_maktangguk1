@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cek Aduan - Desa Serindang</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7f5;
+            color: #26352b;
+        }
+
+        header {
+            background: #145c32;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h2 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+        }
+
+        h1 {
+            text-align: center;
+            color: #145c32;
+            margin-bottom: 10px;
+        }
+
+        .deskripsi {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            background: #16803c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #10652e;
+        }
+
+        #hasil {
+            margin-top: 25px;
+        }
+
+        .success {
+            background: #eef9f1;
+            border-left: 5px solid #16803c;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .success h3 {
+            color: #16803c;
+            margin-bottom: 15px;
+        }
+
+        .success p {
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        .error {
+            background: #ffecec;
+            color: #b00020;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <h2>🌿 Desa Serindang</h2>
+
+    <nav>
+        <a href="index.html">Beranda</a>
+        <a href="aduan.html">Aduan</a>
+        <a href="cek-aduan.html">Cek Aduan</a>
+        <a href="admin.html">Admin</a>
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <h1>Cek Aduan</h1>
+
+    <p class="deskripsi">
+        Masukkan token aduan yang kamu terima setelah mengirim laporan.
+    </p>
+
+
+    <label for="token">Token Aduan</label>
+
+    <input
+        type="text"
+        id="token"
+        placeholder="Masukkan token aduan"
+    >
+
+    <button onclick="cekAduan()">
+        Cek Aduan
+    </button>
+
+
+    <div id="hasil"></div>
+
+</div>
+
+
+<script>
+
+    /*
+     * GANTI URL DI BAWAH INI
+     * dengan URL Web App Google Apps Script kamu.
+     */
+
+    const API_URL =
+        "MASUKKAN_URL_APPS_SCRIPT_KAMU/exec";
+
+
+    function cekAduan() {
+
+        const token =
+            document.getElementById("token").value.trim();
+
+        const hasil =
+            document.getElementById("hasil");
+
+
+        if (token === "") {
+
+            hasil.innerHTML = `
+                <div class="error">
+                    Silakan masukkan token aduan terlebih dahulu.
+                </div>
+            `;
+
+            return;
+        }
+
+
+        hasil.innerHTML = `
+            <div class="loading">
+                Sedang mencari data aduan...
+            </div>
+        `;
+
+
+        fetch(
+            API_URL +
+            "?token=" +
+            encodeURIComponent(token)
+        )
+
+        .then(response => response.json())
+
+        .then(data => {
+
+            if (data.success) {
+
+                hasil.innerHTML = `
+
+                    <div class="success">
+
+                        <h3>✓ Aduan Ditemukan</h3>
+
+                        <p>
+                            <strong>Token:</strong>
+                            ${data.token || token}
+                        </p>
+
+                        <p>
+                            <strong>Nama:</strong>
+                            ${data.nama || "-"}
+                        </p>
+
+                        <p>
+                            <strong>Email:</strong>
+                            ${data.email || "-"}
+                        </p>
+
+                        <p>
+                            <strong>Kategori:</strong>
+                            ${data.kategori || "-"}
+                        </p>
+
+                        <p>
+                            <strong>Judul:</strong>
+                            ${data.judul || "-"}
+                        </p>
+
+                        <p>
+                            <strong>Aduan:</strong>
+                            ${data.aduan || "-"}
+                        </p>
+
+                        <p>
+                            <strong>Tanggal:</strong>
+                            ${data.tanggal || "-"}
+                        </p>
+
+                        <p>
+                            <strong>Status:</strong>
+                            ${data.status || "Menunggu"}
+                        </p>
+
+                        <p>
+                            <strong>Tanggapan Admin:</strong>
+                            ${data.tanggapan || "Belum ada tanggapan."}
+                        </p>
+
+                    </div>
+
+                `;
+
+            } else {
+
+                hasil.innerHTML = `
+
+                    <div class="error">
+                        ${data.message || "Token tidak ditemukan."}
+                    </div>
+
+                `;
+
+            }
+
+        })
+
+        .catch(error => {
+
+            console.error(error);
+
+            hasil.innerHTML = `
+
+                <div class="error">
+                    Gagal mengambil data.
+                    Periksa URL Google Apps Script dan koneksi internet.
+                </div>
+
+            `;
+
+        });
+
+    }
+
+</script>
+
+</body>
+</html>
