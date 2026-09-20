@@ -167,13 +167,8 @@
 
 <script>
 
-    /*
-     * GANTI URL DI BAWAH INI
-     * dengan URL Web App Google Apps Script kamu.
-     */
-
     const API_URL =
-        "MASUKKAN_URL_APPS_SCRIPT_KAMU/exec";
+        "https://script.google.com/macros/s/AKfycbwkN_L8a4pupOPczCy3iC-FQzytRUTwbFVT6-ekkc-RPL9s3us8_0BwtUXzMpN5bkdqZw/exec";
 
 
     function cekAduan() {
@@ -204,84 +199,99 @@
         `;
 
 
-        fetch(
-            API_URL +
-            "?token=" +
-            encodeURIComponent(token)
-        )
+        /*
+         * Gunakan endpoint yang sama dengan halaman Admin.
+         * Data kemudian dicari berdasarkan token di browser.
+         * Ini membuat fitur cek token tetap bekerja walaupun
+         * Apps Script belum mempunyai endpoint khusus ?token=.
+         */
+        fetch(API_URL + "?action=semua")
 
-        .then(response => response.json())
-
-        .then(data => {
-
-            if (data.success) {
-
-                hasil.innerHTML = `
-
-                    <div class="success">
-
-                        <h3>✓ Aduan Ditemukan</h3>
-
-                        <p>
-                            <strong>Token:</strong>
-                            ${data.token || token}
-                        </p>
-
-                        <p>
-                            <strong>Nama:</strong>
-                            ${data.nama || "-"}
-                        </p>
-
-                        <p>
-                            <strong>Email:</strong>
-                            ${data.email || "-"}
-                        </p>
-
-                        <p>
-                            <strong>Kategori:</strong>
-                            ${data.kategori || "-"}
-                        </p>
-
-                        <p>
-                            <strong>Judul:</strong>
-                            ${data.judul || "-"}
-                        </p>
-
-                        <p>
-                            <strong>Aduan:</strong>
-                            ${data.aduan || "-"}
-                        </p>
-
-                        <p>
-                            <strong>Tanggal:</strong>
-                            ${data.tanggal || "-"}
-                        </p>
-
-                        <p>
-                            <strong>Status:</strong>
-                            ${data.status || "Menunggu"}
-                        </p>
-
-                        <p>
-                            <strong>Tanggapan Admin:</strong>
-                            ${data.tanggapan || "Belum ada tanggapan."}
-                        </p>
-
-                    </div>
-
-                `;
-
-            } else {
-
-                hasil.innerHTML = `
-
-                    <div class="error">
-                        ${data.message || "Token tidak ditemukan."}
-                    </div>
-
-                `;
-
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("HTTP " + response.status);
             }
+            return response.json();
+        })
+
+        .then(result => {
+
+            if (result.status !== "success" || !Array.isArray(result.data)) {
+                throw new Error("Data aduan tidak valid");
+            }
+
+            const data = result.data.find(item =>
+                String(item.token || "").trim().toUpperCase() ===
+                token.toUpperCase()
+            );
+
+
+            if (!data) {
+
+                hasil.innerHTML = `
+                    <div class="error">
+                        Token aduan tidak ditemukan. Pastikan token yang dimasukkan benar.
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            hasil.innerHTML = `
+
+                <div class="success">
+
+                    <h3>✓ Aduan Ditemukan</h3>
+
+                    <p>
+                        <strong>Token:</strong>
+                        ${data.token || token}
+                    </p>
+
+                    <p>
+                        <strong>Nama:</strong>
+                        ${data.nama || "-"}
+                    </p>
+
+                    <p>
+                        <strong>Email:</strong>
+                        ${data.email || "-"}
+                    </p>
+
+                    <p>
+                        <strong>Kategori:</strong>
+                        ${data.kategori || "-"}
+                    </p>
+
+                    <p>
+                        <strong>Judul:</strong>
+                        ${data.judul || "-"}
+                    </p>
+
+                    <p>
+                        <strong>Aduan:</strong>
+                        ${data.aduan || "-"}
+                    </p>
+
+                    <p>
+                        <strong>Tanggal:</strong>
+                        ${data.tanggal || "-"}
+                    </p>
+
+                    <p>
+                        <strong>Status:</strong>
+                        ${data.status || (data.tanggapan ? "Sudah ditanggapi" : "Menunggu")}
+                    </p>
+
+                    <p>
+                        <strong>Tanggapan Admin:</strong>
+                        ${data.tanggapan || "Belum ada tanggapan."}
+                    </p>
+
+                </div>
+
+            `;
 
         })
 
@@ -292,8 +302,7 @@
             hasil.innerHTML = `
 
                 <div class="error">
-                    Gagal mengambil data.
-                    Periksa URL Google Apps Script dan koneksi internet.
+                    Gagal mengambil data aduan. Pastikan Google Apps Script dapat diakses.
                 </div>
 
             `;
